@@ -61,12 +61,12 @@ function getLocalIpAddress() {
 }
 
 const localIp = getLocalIpAddress();
-const localUrl = `http://${localIp}:${PORT}`;
+const localUrl = `https://ukraine-vyshyvanka.onrender.com/`;
 
 console.log('==================================================');
 console.log('🇺🇦 СЕРВЕР «УРОК ВИШИВАНКИ» ЗАПУСКАЄТЬСЯ...');
-console.log(`🔗 Адреса для підключення учнів: \x1b[36m${localUrl}\x1b[0m`);
-console.log(`👨‍🏫 Адреса для входу вчителя: \x1b[32m${localUrl}/teacher.html\x1b[0m`);
+console.log(`🔗 Адреса для підключення учнів: https://ukraine-vyshyvanka.onrender.com/`);
+console.log(`👨‍🏫 Адреса для входу вчителя: https://ukraine-vyshyvanka.onrender.com/teacher.html`);
 console.log('==================================================');
 
 // Socket.io Connection Logic

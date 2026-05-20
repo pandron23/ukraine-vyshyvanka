@@ -68,7 +68,7 @@ socket.on('teacher:state', (state) => {
   console.log('Поточний стан сервера:', state);
   
   // Set Server URL and Generate QR code
-  serverUrlText.textContent = state.localUrl;
+  serverUrlText.textContent = "https://ukraine-vyshyvanka.onrender.com/";
   generateQrCode(state.localUrl);
   
   updateUIState(state.status);
