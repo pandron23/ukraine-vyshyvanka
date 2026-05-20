@@ -356,32 +356,26 @@ btnDownloadShirt.addEventListener('click', () => {
   const img = new Image();
   img.src = 'vsyvanka_shirt.png';
   img.onload = function() {
-    // Draw the shirt image centered and filling nicely (width 500, height 520, placed at x=50, y=20)
-    ctx.drawImage(img, 50, 20, 500, 520);
+    // Draw the shirt image centered and filling nicely (width 540, height 540, placed at x=30, y=30 - 5% padding)
+    ctx.drawImage(img, 30, 30, 540, 540);
     
-    // Now overlay the drawing pattern on the chest area of the shirt image
-    // On the 600x660 canvas, with the shirt at (50, 20, 500, 520):
-    // The chest area of this shirt image is beautifully covered by the grid.
-    // Let's position the canvas pattern in the upper middle area:
-    // x: 215, y: 150, width: 170, height: 170
-    const patternX = 215;
-    const patternY = 150;
-    const patternW = 170;
-    const patternH = 170;
+    // Now overlay the drawing pattern on the entire 600x600 area matching the student canvas logic
+    const patternW = 600;
+    const patternH = 600;
     
     const cw = patternW / GRID_COLS;
     const ch = patternH / GRID_ROWS;
     
     ctx.lineCap = 'round';
-    ctx.lineWidth = cw * 0.22;
+    ctx.lineWidth = Math.max(1.8, cw * 0.22); // Thick threads
     
     selectedShirtData.drawingData.forEach(cell => {
       ctx.strokeStyle = cell.color;
       const p = cw * 0.12;
-      const x1 = patternX + cell.x * cw + p;
-      const y1 = patternY + cell.y * ch + p;
-      const x2 = patternX + (cell.x + 1) * cw - p;
-      const y2 = patternY + (cell.y + 1) * ch - p;
+      const x1 = cell.x * cw + p;
+      const y1 = cell.y * ch + p;
+      const x2 = (cell.x + 1) * cw - p;
+      const y2 = (cell.y + 1) * ch - p;
       
       ctx.beginPath();
       ctx.moveTo(x1, y1);
@@ -395,7 +389,7 @@ btnDownloadShirt.addEventListener('click', () => {
     ctx.fillStyle = '#8B0000';
     ctx.font = 'bold 36px "Comfortaa", Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(selectedShirtData.name, exportCanvas.width / 2, exportCanvas.height - 40);
+    ctx.fillText(selectedShirtData.name, exportCanvas.width / 2, exportCanvas.height - 25);
     
     // Download trigger
     const link = document.createElement('a');
