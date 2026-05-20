@@ -136,7 +136,7 @@ socket.on('student:submit-success', () => {
 btnJoin.addEventListener('click', () => {
   const name = nameInput.value.trim();
   if (name === '') {
-    alert('Будь ласка, введіть своє ім\'я!');
+    alert('Please enter your name!');
     nameInput.focus();
     return;
   }
@@ -367,7 +367,7 @@ btnSubmit.addEventListener('click', () => {
 
 // Clear canvas
 btnClear.addEventListener('click', () => {
-  if (confirm('Ви впевнені, що хочете очистити весь візерунок?')) {
+  if (confirm('Are you sure you want to clear your drawing?')) {
     for (const key in gridState) {
       delete gridState[key];
     }

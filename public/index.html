@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Майстерня Вишиванки — Кабінет Учня 🎨</title>
+  <title>Vyshyvanka Workshop — Student Area 🎨</title>
   <link rel="stylesheet" href="css/main.css">
   <!-- Include Socket.io client -->
   <script src="/socket.io/socket.io.js"></script>
@@ -21,43 +21,43 @@
     <!-- STATE 1: JOIN/LOGIN LOBBY -->
     <div id="studentLoginView" class="view-state active">
       <header class="margin-bottom-md">
-        <h1 style="font-size: 1.8rem;">Вишиванка 🌸</h1>
-        <p style="font-size: 0.95rem; margin-bottom: 0;">Ласкаво просимо до нашої віртуальної творчої майстерні!</p>
+        <h1 style="font-size: 1.8rem;">Vyshyvanka 🌸</h1>
+        <p style="font-size: 0.95rem; margin-bottom: 0;">Welcome to our virtual creative workshop!</p>
       </header>
 
       <div class="input-group">
-        <label class="input-label" for="studentNameInput">Введіть своє ім'я:</label>
-        <input type="text" id="studentNameInput" placeholder="Наприклад, Ірина або Андрій..." maxlength="15" autocomplete="off">
+        <label class="input-label" for="studentNameInput">Enter your name:</label>
+        <input type="text" id="studentNameInput" placeholder="For example, Mary or John..." maxlength="15" autocomplete="off">
       </div>
 
       <button id="btnJoin" class="btn btn-primary" style="width: 100%; padding: 16px;">
-        Приєднатися до уроку ✨
+        Join the lesson ✨
       </button>
     </div>
 
     <!-- STATE 2: STUDENT LOBBY (WAITING FOR START) -->
     <div id="studentLobbyView" class="view-state">
-      <h2>Вітаємо, <span id="helloName" style="color: var(--dark-red);">учень</span>! 👋</h2>
-      <p style="font-size: 1rem;">Ви успішно приєдналися до уроку.</p>
+      <h2>Welcome, <span id="helloName" style="color: var(--dark-red);">student</span>! 👋</h2>
+      <p style="font-size: 1rem;">You joined the lesson successfully.</p>
       
       <div class="ornament-loader"></div>
       
       <p style="font-size: 0.95rem; color: #666; font-style: italic;">
-        Очікуйте, коли вчитель запустить сесію малювання на великому екрані...
+        Please wait for the teacher to start the drawing session...
       </p>
     </div>
 
     <!-- STATE 3: DRAWING CANVAS BOARD -->
     <div id="studentDrawingView" class="view-state">
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-red); padding-bottom: 8px; margin-bottom: 12px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 0;">Мій орнамент 🧵</h2>
+        <h2 style="font-size: 1.2rem; margin-bottom: 0;">My Pattern 🧵</h2>
         <div id="studentTimerBadge" style="background: rgba(209, 43, 43, 0.1); color: var(--primary-red); padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; border: 1px solid rgba(209, 43, 43, 0.2);">
-          ⏱️ <span id="studentTimerText">0</span>с
+          ⏱️ <span id="studentTimerText">0</span>s
         </div>
       </div>
 
       <p style="font-size: 0.85rem; color: #555; margin-bottom: 12px;">
-        Вишийте хрестиком свій орнамент на грудях сорочки. Проведіть або торкайтеся сітки!
+        Draw your cross-stitch pattern on the shirt. Touch or drag on the grid!
       </p>
 
       <!-- Drawing Editor Workspace -->
@@ -65,37 +65,37 @@
         <div class="drawing-area-wrapper">
           <!-- Translucent outline of vyshyvanka silhouette behind the drawing canvas -->
           <div class="canvas-vyshyvanka-outline">
-            <img src="vsyvanka_shirt.png" alt="Вишиванка" style="width: 100%; height: 100%; object-fit: contain;">
+            <img src="vsyvanka_shirt.png" alt="Vyshyvanka" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
           <!-- Clean Canvas for Cross-Stitch grid -->
           <canvas id="vyshyvankaCanvas" width="312" height="312"></canvas>
         </div>
 
         <div class="canvas-instructions">
-          <span>☝ Торкніться клітинки для шва хрестиком</span>
+          <span>☝ Touch a cell to draw cross-stitch</span>
         </div>
 
         <!-- Color Swatch Toolbar -->
         <div class="palette-container">
-          <div class="color-swatch active" style="background-color: #D12B2B;" data-color="#D12B2B" title="Червоний"></div>
-          <div class="color-swatch" style="background-color: #1E1E1E;" data-color="#1E1E1E" title="Чорний"></div>
-          <div class="color-swatch" style="background-color: #1C3F60;" data-color="#1C3F60" title="Синій"></div>
-          <div class="color-swatch" style="background-color: #E5A93B;" data-color="#E5A93B" title="Жовтий"></div>
-          <div class="color-swatch" style="background-color: #2B7A4B;" data-color="#2B7A4B" title="Зелений"></div>
-          <div class="color-swatch custom-color-swatch" title="Точний колір">
+          <div class="color-swatch active" style="background-color: #D12B2B;" data-color="#D12B2B" title="Red"></div>
+          <div class="color-swatch" style="background-color: #1E1E1E;" data-color="#1E1E1E" title="Black"></div>
+          <div class="color-swatch" style="background-color: #1C3F60;" data-color="#1C3F60" title="Blue"></div>
+          <div class="color-swatch" style="background-color: #E5A93B;" data-color="#E5A93B" title="Yellow"></div>
+          <div class="color-swatch" style="background-color: #2B7A4B;" data-color="#2B7A4B" title="Green"></div>
+          <div class="color-swatch custom-color-swatch" title="Custom color">
             <input type="color" id="customColorInput" value="#D12B2B">
             <span class="custom-color-icon">🎨</span>
           </div>
-          <div class="color-swatch swatch-eraser" data-color="erase" title="Гумка">🧽</div>
+          <div class="color-swatch swatch-eraser" data-color="erase" title="Eraser">🧽</div>
         </div>
 
         <!-- Actions -->
         <div class="flex-row" style="width: 100%;">
           <button id="btnClear" class="btn btn-secondary" style="flex: 1; padding: 12px 16px; font-size: 0.95rem;">
-            🗑️ Очистити
+            🗑️ Clear
           </button>
           <button id="btnSubmit" class="btn btn-success" style="flex: 2; padding: 12px 16px; font-size: 0.95rem;">
-            ✓ Надіслати
+            ✓ Send
           </button>
         </div>
       </div>
@@ -103,13 +103,13 @@
 
     <!-- STATE 4: SUCCESS / SUBMITTED -->
     <div id="studentWaitingView" class="view-state">
-      <h2 style="color: var(--accent-green);">Вишиванку надіслано! 🎉</h2>
-      <p style="font-size: 1.05rem; margin-top: 15px;">Чудова робота! Ваш унікальний візерунок відправлено на комп'ютер вчителя.</p>
+      <h2 style="color: var(--accent-green);">Vyshyvanka sent! 🎉</h2>
+      <p style="font-size: 1.05rem; margin-top: 15px;">Great job! Your unique pattern is sent to the teacher.</p>
       
       <div style="font-size: 4rem; margin: 25px 0; animation: bounce 2s infinite alternate;">🌸</div>
       
       <p style="font-size: 0.95rem; color: #666;">
-        Погляньте на великий екран у класі — незабаром там з'явиться галерея всіх вишиванок!
+        Look at the big screen in the classroom — the gallery will appear soon!
       </p>
     </div>
   </div>

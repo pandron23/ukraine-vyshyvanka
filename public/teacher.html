@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок Вишиванки — Панель Вчителя 👨‍🏫</title>
+  <title>Vyshyvanka Lesson — Teacher Panel 👨‍🏫</title>
   <link rel="stylesheet" href="css/main.css">
   <!-- Include Socket.io client -->
   <script src="/socket.io/socket.io.js"></script>
@@ -20,44 +20,44 @@
     <div class="corner-ornament bottom-right"></div>
 
     <header class="margin-bottom-md">
-      <h1>Майстерня Вишиванки 🎨🇺🇦</h1>
-      <p>Інтерактивна сесія для малювання орнаменту на українській сорочці</p>
+      <h1>Vyshyvanka Workshop 🎨🇺🇦</h1>
+      <p>Interactive drawing session on Ukrainian shirts</p>
     </header>
 
     <div class="teacher-layout">
       <!-- SIDEBAR: Controls & Connection -->
       <aside class="sidebar-panel">
-        <h2>Приєднання</h2>
+        <h2>Join Info</h2>
         <div class="qr-box">
           <div id="qrcode" class="qr-container"></div>
         </div>
-        <p style="font-size: 0.9rem; margin-bottom: 8px;">Адреса для учнів:</p>
-        <div id="serverUrlText" class="server-link">Отримання IP...</div>
+        <p style="font-size: 0.9rem; margin-bottom: 8px;">Link for students:</p>
+        <div id="serverUrlText" class="server-link">Getting IP...</div>
         <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">
-          Учні можуть відсканувати QR-код або ввести адресу в браузері свого смартфона.
+          Students can scan the QR code or open the link on their phones.
         </p>
 
         <hr style="width: 100%; border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin-bottom: 20px;">
 
-        <h2>Панель Керування</h2>
+        <h2>Control Panel</h2>
         
         <!-- Controls: Active in Lobby -->
         <div id="lobbyControls" class="view-state active">
           <div class="input-group">
-            <label class="input-label" for="durationInput">Час малювання (сек):</label>
+            <label class="input-label" for="durationInput">Drawing time (sec):</label>
             <select id="durationInput">
-              <option value="30">30 секунд (тест)</option>
-              <option value="60" selected>60 секунд (1 хвилина)</option>
-              <option value="120">120 секунд (2 хвилини)</option>
-              <option value="180">180 секунд (3 хвилини)</option>
-              <option value="300">300 секунд (5 хвилин)</option>
+              <option value="30">30 seconds (test)</option>
+              <option value="60" selected>60 seconds (1 minute)</option>
+              <option value="120">120 seconds (2 minutes)</option>
+              <option value="180">180 seconds (3 minutes)</option>
+              <option value="300">300 seconds (5 minutes)</option>
             </select>
           </div>
           <button id="btnOpenStencil" class="btn btn-secondary" style="width: 100%; margin-bottom: 12px;">
-            📐 Налаштувати трафарет
+            📐 Setup Stencil
           </button>
           <button id="btnStart" class="btn btn-primary" style="width: 100%;">
-            🚀 Запустити вишивання
+            🚀 Start Drawing
           </button>
         </div>
 
@@ -67,19 +67,19 @@
             <div class="timer-circle">
               <span id="timerText">0</span>
             </div>
-            <p class="margin-top-md" style="font-weight: 600; color: var(--dark-red);">Триває малювання...</p>
+            <p class="margin-top-md" style="font-weight: 600; color: var(--dark-red);">Drawing in progress...</p>
           </div>
           <button id="btnStop" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #a82323, #630000);">
-            🛑 Завершити зараз
+            🛑 Stop Session
           </button>
         </div>
 
         <!-- Controls: Active in Finished -->
         <div id="finishedControls" class="view-state">
           <div class="ornament-loader" style="width: 40px; height: 40px; margin: 10px auto;"></div>
-          <p style="font-weight: bold; color: var(--accent-green); margin-bottom: 15px;">Сесію завершено!</p>
+          <p style="font-weight: bold; color: var(--accent-green); margin-bottom: 15px;">Session Finished!</p>
           <button id="btnReset" class="btn btn-secondary" style="width: 100%;">
-            🔄 Новий урок
+            🔄 New Lesson
           </button>
         </div>
       </aside>
@@ -90,9 +90,9 @@
         <!-- View 1: Lobby (Joined Students) -->
         <div id="lobbyView" class="view-state active">
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px;">
-            <h2>Підключені учні (<span id="studentCount">0</span>)</h2>
+            <h2>Connected Students (<span id="studentCount">0</span>)</h2>
             <div id="waitingBadge" style="background: rgba(229,169,59,0.15); color: #b77f1b; padding: 4px 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;">
-              Очікування учнів...
+              Waiting for students...
             </div>
           </div>
           <div id="lobbyStudentGrid" class="student-grid">
@@ -102,8 +102,8 @@
 
         <!-- View 2: Drawing Screen (Real-time progress tracker) -->
         <div id="drawingView" class="view-state">
-          <h2>Учні створюють свої вишиванки ✂️🧵</h2>
-          <p>Попросіть учнів почати малювати на телефонах та завершити до кінця таймера.</p>
+          <h2>Students are drawing their patterns ✂️🧵</h2>
+          <p>Ask students to draw on their phones and finish before the timer ends.</p>
           <div id="drawingStudentGrid" class="student-grid">
             <!-- Dynamically populated status of who has finished or still drawing -->
           </div>
@@ -111,8 +111,8 @@
 
         <!-- View 3: Results Gallery -->
         <div id="resultsView" class="view-state">
-          <h2>Виставка Вишиванок нашого Класу! 🎉🌸</h2>
-          <p>Кожен учень створив унікальний традиційний орнамент. Натисніть на вишиванку, щоб розглянути її детальніше!</p>
+          <h2>Our Class Vyshyvanka Exhibition! 🎉🌸</h2>
+          <p>Every student created a unique pattern. Click a shirt to see details!</p>
           <div id="galleryContainer" class="results-gallery">
             <!-- Dynamically populated shirts container -->
           </div>
@@ -126,17 +126,17 @@
   <div id="shirtModal" class="overlay-modal">
     <div class="overlay-content">
       <button class="overlay-close" id="modalCloseBtn">&times;</button>
-      <h2 id="modalStudentName" style="color: var(--dark-red); font-family: var(--font-display);">Вишиванка Олександра</h2>
+      <h2 id="modalStudentName" style="color: var(--dark-red); font-family: var(--font-display);">Student's Vyshyvanka</h2>
       
       <div class="overlay-shirt-view">
         <!-- Shirt image and canvas pattern will be injected here -->
-        <img class="shirt-silhouette" src="vsyvanka_shirt.png" alt="Вишиванка" style="object-fit: contain;">
+        <img class="shirt-silhouette" src="vsyvanka_shirt.png" alt="Vyshyvanka" style="object-fit: contain;">
         <canvas id="modalPatternCanvas" class="shirt-pattern-canvas" width="96" height="96"></canvas>
       </div>
       
-      <p style="font-size: 0.95rem; color: #666; font-style: italic;">Традиційне українське вишивання хрестиком (сучасна оцифрована версія)</p>
+      <p style="font-size: 0.95rem; color: #666; font-style: italic;">Traditional Ukrainian cross-stitch embroidery (digital version)</p>
       <button id="btnDownloadShirt" class="btn btn-success" style="margin-top: 10px;">
-        💾 Зберегти вишиванку (PNG)
+        💾 Save Shirt (PNG)
       </button>
     </div>
   </div>
@@ -145,9 +145,9 @@
   <div id="stencilModal" class="overlay-modal">
     <div class="overlay-content" style="max-width: 580px;">
       <button class="overlay-close" id="stencilModalCloseBtn">&times;</button>
-      <h2 style="color: var(--dark-red); font-family: var(--font-display); margin-bottom: 10px;">Налаштування Трафарету 📐</h2>
+      <h2 style="color: var(--dark-red); font-family: var(--font-display); margin-bottom: 10px;">Setup Stencil 📐</h2>
       <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">
-        Виберіть клітинки, в яких учням дозволено малювати. Проведіть мишкою для швидкого малювання!
+        Select cells where students can draw. Click and drag to select quickly!
       </p>
       
       <!-- Stencil Editor Workspace -->
@@ -155,7 +155,7 @@
         <div class="drawing-area-wrapper" style="margin-bottom: 0; position: relative;">
           <!-- Translucent shirt outline -->
           <div class="canvas-vyshyvanka-outline">
-            <img src="vsyvanka_shirt.png" alt="Вишиванка" style="width: 100%; height: 100%; object-fit: contain;">
+            <img src="vsyvanka_shirt.png" alt="Vyshyvanka" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
           <!-- Canvas for Stencil grid drawing -->
           <canvas id="stencilCanvas" width="312" height="312"></canvas>
@@ -165,25 +165,25 @@
         <div class="flex-row" style="margin-top: 5px;">
           <label style="display: inline-flex; align-items: center; gap: 6px; font-weight: bold; cursor: pointer;">
             <input type="radio" name="stencilMode" value="allow" checked style="accent-color: var(--accent-green); width: 18px; height: 18px;">
-            <span style="color: var(--accent-green);">🟢 Дозволити</span>
+            <span style="color: var(--accent-green);">🟢 Allow</span>
           </label>
           <label style="display: inline-flex; align-items: center; gap: 6px; font-weight: bold; cursor: pointer; margin-left: 15px;">
             <input type="radio" name="stencilMode" value="block" style="accent-color: var(--primary-red); width: 18px; height: 18px;">
-            <span style="color: var(--primary-red);">🔴 Заблокувати</span>
+            <span style="color: var(--primary-red);">🔴 Block</span>
           </label>
         </div>
         
         <!-- Presets -->
         <div class="flex-row" style="margin-top: 5px; width: 100%; justify-content: center; gap: 6px;">
-          <button id="presetAll" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Вся сорочка</button>
-          <button id="presetChest" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Тільки груди</button>
-          <button id="presetSleeves" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Тільки рукава</button>
-          <button id="presetFree" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Вільна сітка</button>
-          <button id="presetClear" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: var(--primary-red); color: var(--primary-red); box-shadow: none;">Очистити</button>
+          <button id="presetAll" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Full Shirt</button>
+          <button id="presetChest" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Only Chest</button>
+          <button id="presetSleeves" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Only Sleeves</button>
+          <button id="presetFree" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: #999; color: #555; box-shadow: none;">Free Grid</button>
+          <button id="presetClear" class="btn btn-secondary" style="padding: 8px 10px; font-size: 0.8rem; border-color: var(--primary-red); color: var(--primary-red); box-shadow: none;">Clear All</button>
         </div>
         
         <button id="btnSaveStencil" class="btn btn-success" style="width: 100%; margin-top: 10px; padding: 12px;">
-          💾 Зберегти трафарет
+          💾 Save Stencil
         </button>
       </div>
     </div>
@@ -196,10 +196,10 @@
     <div class="vyshyvanka-item">
       <div class="shirt-container">
         <!-- Reusable clean outline of a Ukrainian Vyshyvanka shirt -->
-        <img class="shirt-silhouette" src="vsyvanka_shirt.png" alt="Вишиванка" style="object-fit: contain;">
+        <img class="shirt-silhouette" src="vsyvanka_shirt.png" alt="Vyshyvanka" style="object-fit: contain;">
         <canvas class="shirt-pattern-canvas" width="96" height="96"></canvas>
       </div>
-      <div class="student-author-name">Учень</div>
+      <div class="student-author-name">Student</div>
     </div>
   </template>
 

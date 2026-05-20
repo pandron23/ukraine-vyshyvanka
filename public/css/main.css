@@ -689,3 +689,60 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
   user-select: none;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
 }
+
+@media (max-width: 480px) {
+  /* Smaller container padding to save space */
+  .glass-container {
+    padding: 16px 12px !important;
+    margin: 6px 0 !important;
+  }
+  
+  /* Compact headers */
+  h1 {
+    font-size: 1.5rem !important;
+    margin-bottom: 8px !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 12px !important;
+  }
+  
+  p {
+    font-size: 0.88rem !important;
+    margin-bottom: 14px !important;
+    line-height: 1.4 !important;
+  }
+  
+  /* Compact palette for drawing */
+  .palette-container {
+    padding: 8px 12px !important;
+    gap: 8px !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .color-swatch {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  /* Compact canvas wrapper */
+  .drawing-area-wrapper {
+    padding: 6px !important;
+    margin-bottom: 16px !important;
+  }
+  
+  /* Compact buttons */
+  .btn {
+    padding: 10px 16px !important;
+    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+  }
+  
+  /* Instructions */
+  .canvas-instructions {
+    font-size: 0.8rem !important;
+    margin-top: -8px !important;
+    margin-bottom: 12px !important;
+  }
+}

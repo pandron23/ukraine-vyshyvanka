@@ -65,7 +65,7 @@ socket.emit('teacher:init');
 
 // Initial state load
 socket.on('teacher:state', (state) => {
-  console.log('Поточний стан сервера:', state);
+  console.log('Current server state:', state);
   
   // Set Server URL and Generate QR code
   serverUrlText.textContent = "https://ukraine-vyshyvanka.onrender.com/";
@@ -163,11 +163,11 @@ function updateStudentsList(students) {
   studentCountText.textContent = students.length;
   
   if (students.length > 0) {
-    waitingBadge.textContent = 'Збір розпочато';
+    waitingBadge.textContent = 'Session Active';
     waitingBadge.style.background = 'rgba(43, 122, 75, 0.15)';
     waitingBadge.style.color = 'var(--accent-green)';
   } else {
-    waitingBadge.textContent = 'Очікування учнів...';
+    waitingBadge.textContent = 'Waiting for students...';
     waitingBadge.style.background = 'rgba(229,169,59,0.15)';
     waitingBadge.style.color = '#b77f1b';
   }
@@ -218,7 +218,7 @@ function updateStudentsList(students) {
     statusText.style.fontSize = '0.75rem';
     statusText.style.marginTop = '4px';
     statusText.style.color = student.submitted ? 'var(--accent-green)' : '#888';
-    statusText.textContent = student.submitted ? '✓ Готово' : '✍ вишиває...';
+    statusText.textContent = student.submitted ? '✓ Done' : '✍ drawing...';
     
     const dot = document.createElement('div');
     dot.className = 'status-dot';
@@ -294,7 +294,7 @@ function renderResultsGallery(students) {
     emptyMsg.style.gridColumn = '1 / -1';
     emptyMsg.style.padding = '40px';
     emptyMsg.style.color = '#777';
-    emptyMsg.innerHTML = '<span style="font-size:3rem;">🌸</span><br><br>На жаль, у класі не було підключених учнів.';
+    emptyMsg.innerHTML = '<span style="font-size:3rem;">🌸</span><br><br>Sorry, no students are in the class.';
     galleryContainer.appendChild(emptyMsg);
     return;
   }
@@ -323,7 +323,7 @@ function renderResultsGallery(students) {
 // Open modal for detailed shirt analysis
 function openDetailedView(student) {
   selectedShirtData = student;
-  modalStudentName.textContent = `Вишиванка: ${student.name} 🇺🇦`;
+  modalStudentName.textContent = `Shirt: ${student.name} 🇺🇦`;
   shirtModal.style.display = 'flex';
   
   // Set dimensions higher for clearer modal rendering
@@ -393,7 +393,7 @@ btnDownloadShirt.addEventListener('click', () => {
     
     // Download trigger
     const link = document.createElement('a');
-    link.download = `вишиванка_${selectedShirtData.name.toLowerCase().replace(/\s+/g, '_')}.png`;
+    link.download = `shirt_${selectedShirtData.name.toLowerCase().replace(/\s+/g, '_')}.png`;
     link.href = exportCanvas.toDataURL('image/png');
     link.click();
   };
